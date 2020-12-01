@@ -9,11 +9,8 @@ namespace Day_1
         static void Main(string[] args)
         {
             List<int> day1Input = InputToList("../../../day_1_input.txt");
-            int answer = FindValueToMake2020(day1Input);
-            int answer2 = FindThreeValuesToMake2020(day1Input);
-
-            Console.WriteLine("Part 1: {0}", answer);
-            Console.WriteLine("Part 2: {0}", answer2);
+            FindTwoValuesToMake2020(day1Input);
+            FindThreeValuesToMake2020(day1Input);
         }
 
         private static List<int> InputToList(string filename)
@@ -37,29 +34,28 @@ namespace Day_1
         }
 
         // Part 1 Solution
-        private static int FindValueToMake2020(List<int> day1Input)
+        private static void FindTwoValuesToMake2020(List<int> day1Input)
         {
-            int answer = 0;
             foreach (int number in day1Input)
             {
-                // We can use binary search to quickly see if secondNumberToFind is present in the list
+                // We can use binary search to quickly see if secondNumberToFind is present in the list,
+                // we don't need the index because we just need to know if the value is present
                 int secondNumberToFind = 2020 - number;
-                int secondValueIndex;
-                if ((secondValueIndex = day1Input.BinarySearch(secondNumberToFind)) >= 0)
+                if (day1Input.BinarySearch(secondNumberToFind) >= 0)
                 {
-                    answer = number * secondNumberToFind;
+                    int answer = number * secondNumberToFind;
+                    Console.WriteLine("Part 1: {0}", answer);
                     break;
                 }
 
             }
 
-            return answer;
         }
 
         // Part 2 Solution
-        private static int FindThreeValuesToMake2020(List<int> day1Input)
+        private static void FindThreeValuesToMake2020(List<int> day1Input)
         {
-            int answer = 0;
+
             foreach (int number in day1Input)
             {
                 // We'll try to find two numbers that add up to valueToFind
@@ -71,19 +67,19 @@ namespace Day_1
                     if (secondNumber == number)
                         continue;
 
-                    // Search the list to see if thirdValueToFind is in the list
+                    // Search the list to see if thirdValueToFind is in the list,
+                    // the actual index isn't needed because we just need to know if the value is present
                     int thirdValueToFind = valueToFind - secondNumber;
-                    int thirdValueIndex;
-                    if ((thirdValueIndex = day1Input.BinarySearch(thirdValueToFind)) >= 0)
+                    if (day1Input.BinarySearch(thirdValueToFind) >= 0)
                     {
-                        answer = number * secondNumber * thirdValueToFind;
-                        break;
+                        int answer = number * secondNumber * thirdValueToFind;
+                        Console.WriteLine("Part 2: {0}", answer);
+
+                        return;
                     }
 
                 }
             }
-
-            return answer;
         }
     }
 }
