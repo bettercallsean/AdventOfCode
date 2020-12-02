@@ -35,7 +35,7 @@ namespace Day_2
         {
             int validPasswords = 0;
 
-            foreach(string line in passwordList)
+            foreach (string line in passwordList)
             {
                 string[] passwordParameters = line.Split(' ');
 
@@ -58,7 +58,7 @@ namespace Day_2
         {
             int validPasswords = 0;
 
-            foreach(string line in passwordList)
+            foreach (string line in passwordList)
             {
                 string[] passwordParameters = line.Split(' ');
 
@@ -71,7 +71,7 @@ namespace Day_2
                 string password = passwordParameters[2];
 
                 // Cheeky little XOR to make sure that only one index contains the character, glad my CS degree is coming in handy 
-                if(password[positionOne] == character ^ password[positionTwo] == character)
+                if (password[positionOne] == character ^ password[positionTwo] == character)
                     validPasswords++;
             }
 
