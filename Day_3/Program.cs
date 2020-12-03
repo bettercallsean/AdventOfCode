@@ -36,7 +36,7 @@ namespace Day_3
                 // the string length (31) is subtracted to put the index back at with the correct zero-based value
                 // e.g Index 33 is the same as accessing index 2 from the string, so subtracting 31 gives us 2, putting the index back
                 // at the start of the string
-                if (xCoord > map[i].Length - 1)
+                if (xCoord >= map[i].Length)
                     xCoord -= map[i].Length;
 
             }
@@ -64,7 +64,7 @@ namespace Day_3
                     // the string length (31) is subtracted to put the index back at with the correct zero-based value
                     // e.g Index 33 is the same as accessing index 2 from the string, so subtracting 31 gives us 2, putting the index back
                     // at the start of the string
-                    if (xCoord > map[i].Length - 1)
+                    if (xCoord >= map[i].Length)
                         xCoord -= map[i].Length;
 
                 }
