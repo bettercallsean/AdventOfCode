@@ -33,11 +33,11 @@ namespace Day_3
 
                 xCoord += 3;
                 // There's 31 characters per string, but arrays are zero-based, so if xCoord becomes greater than the max, zero-based index,
-                // 31 is subtracted to put the index back at with the correct zero-based value
+                // the string length (31) is subtracted to put the index back at with the correct zero-based value
                 // e.g Index 33 is the same as accessing index 2 from the string, so subtracting 31 gives us 2, putting the index back
                 // at the start of the string
                 if (xCoord > map[i].Length - 1)
-                    xCoord = xCoord - 31;
+                    xCoord -= map[i].Length;
 
             }
 
@@ -61,11 +61,11 @@ namespace Day_3
 
                     xCoord += slope[0];
                     // There's 31 characters per string, but arrays are zero-based, so if xCoord becomes greater than the max, zero-based index,
-                    // 31 is subtracted to put the index back at with the correct zero-based value
+                    // the string length (31) is subtracted to put the index back at with the correct zero-based value
                     // e.g Index 33 is the same as accessing index 2 from the string, so subtracting 31 gives us 2, putting the index back
                     // at the start of the string
                     if (xCoord > map[i].Length - 1)
-                        xCoord = xCoord - 31;
+                        xCoord -= map[i].Length;
 
                 }
 
