@@ -92,46 +92,38 @@ namespace Day_4
         // Part 2
         static bool ValidPassportFieldData(KeyValuePair<string, string> passportField)
         {
-            bool validField = false;
             string data = passportField.Value;
             switch (passportField.Key)
             {
                 case "byr":
-                    validField = Regex.IsMatch(data, "19[2-9][0-9]|200[0-2]");
-                    break;
+                    return Regex.IsMatch(data, "19[2-9][0-9]|200[0-2]");
 
                 case "iyr":
-                    validField = Regex.IsMatch(data, "20(1[0-9]|20)");
-                    break;
+                    return Regex.IsMatch(data, "20(1[0-9]|20)");
 
                 case "eyr":
-                    validField = Regex.IsMatch(data, "20(2[0-9]|30)");
-                    break;
+                    return Regex.IsMatch(data, "20(2[0-9]|30)");
 
                 case "hgt":
-                    validField = Regex.IsMatch(data, "1([5-8][0-9]|9[0-3])cm") || Regex.IsMatch(data, "5[3-9]|6[0-9]|7[0-6]in");
-                    break;
+                    return Regex.IsMatch(data, "1([5-8][0-9]|9[0-3])cm") || Regex.IsMatch(data, "5[3-9]|6[0-9]|7[0-6]in");
 
                 case "hcl":
-                    validField = Regex.IsMatch(data, "#[0-9a-f]{6}");
-                    break;
+                    return Regex.IsMatch(data, "#[0-9a-f]{6}");
 
                 case "ecl":
                     string[] validEyeColours = { "amb", "blu", "brn", "gry", "grn", "hzl", "oth" };
-                    if (validEyeColours.Contains(data))
-                        validField = true;
-                    break;
+                    return validEyeColours.Contains(data);
 
                 case "pid":
-                        validField = data.Length == 9;
-                    break;
+                    return data.Length == 9;
 
                 case "cid":
-                    validField = true;
-                    break;
+                    return true;
+
+                default:
+                    return false;
             }
             
-            return validField;
         }
     }
 }
