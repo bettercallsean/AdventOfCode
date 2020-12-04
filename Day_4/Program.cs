@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Day_4
 {
@@ -85,73 +86,44 @@ namespace Day_4
                 }
             }
 
-            Console.WriteLine("Part 1: {0}", validPassportCount);
+            Console.WriteLine("Part 2: {0}", validPassportCount);
         }
 
+        // Part 2
         static bool ValidPassportFieldData(KeyValuePair<string, string> passportField)
         {
             bool validField = false;
+            string data = passportField.Value;
             switch (passportField.Key)
             {
                 case "byr":
-                    int.TryParse(passportField.Value, out int dob);
-                    if (1920 <= dob && dob <= 2002)
-                        validField = true;
+                    validField = Regex.IsMatch(data, "19[2-9][0-9]|200[0-2]");
                     break;
 
                 case "iyr":
-                    int.TryParse(passportField.Value, out int year);
-                    if (2010 <= year && year <= 2020)
-                        validField = true;
+                    validField = Regex.IsMatch(data, "20(1[0-9]|20)");
                     break;
 
                 case "eyr":
-                    int.TryParse(passportField.Value, out int expirationDate);
-                    if (2020 <= expirationDate && expirationDate <= 2030)
-                        validField = true;
+                    validField = Regex.IsMatch(data, "20(2[0-9]|30)");
                     break;
 
                 case "hgt":
-                    string heightString = passportField.Value[0..^2];
-                    int.TryParse(heightString, out int height);
-                    string unit = passportField.Value[heightString.Length..];
-
-                    if (unit == "cm")
-                        validField = (150 <= height && height <= 193);
-                    else if (unit == "in")
-                        validField = (59 <= height && height <= 76);
-                    else
-                        validField = false;
+                    validField = Regex.IsMatch(data, "1([5-8][0-9]|9[0-3])cm") || Regex.IsMatch(data, "5[3-9]|6[0-9]|7[0-6]in");
                     break;
 
                 case "hcl":
-                    if (passportField.Value[0] == '#' && passportField.Value.Length == 7)
-                    {
-                        string hairColour = passportField.Value[1..];
-                        char[] validCharacters = { 'a', 'b', 'c', 'd', 'e', 'f', '0', '1', '2',
-                        '3', '4', '5', '6', '7', '8', '9'};
-                        foreach (char c in hairColour)
-                        {
-                            if (validCharacters.Contains(c))
-                                validField = true;
-                            else
-                            {
-                                validField = false;
-                                break;
-                            }
-                        }
-                    }
+                    validField = Regex.IsMatch(data, "#[0-9a-f]{6}");
                     break;
 
                 case "ecl":
                     string[] validEyeColours = { "amb", "blu", "brn", "gry", "grn", "hzl", "oth" };
-                    if (validEyeColours.Contains(passportField.Value))
+                    if (validEyeColours.Contains(data))
                         validField = true;
                     break;
 
                 case "pid":
-                    if (passportField.Value.Length == 9)
-                        validField = true;
+                        validField = data.Length == 9;
                     break;
 
                 case "cid":
