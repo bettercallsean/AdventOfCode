@@ -9,10 +9,10 @@ namespace Day_5
         static void Main(string[] args)
         {
             string[] boardPasses = File.ReadAllLines("../../../boarding_passes.txt");
-            SeatFinder(boardPasses);
+            HighestSeatIdFinder(boardPasses);
         }
 
-        static void SeatFinder(string[] boardingPasses)
+        static void HighestSeatIdFinder(string[] boardingPasses)
         {
             int highestSeatId = 0;
             List<int> seatIds = new List<int>();
