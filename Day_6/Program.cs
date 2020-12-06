@@ -14,6 +14,7 @@ namespace Day_6
             SumOfAllGroupAnswers("../../../customs_answers.txt");
         }
 
+        // Part 1
         static void SumOfUniqueGroupAnswers(string filename)
         {
             int sum = 0;
@@ -41,9 +42,10 @@ namespace Day_6
                 }
             }
 
-            Console.WriteLine(sum);
+            Console.WriteLine($"Part 1: {sum}");
         }
 
+        // Part 2
         static void SumOfAllGroupAnswers(string filename)
         {
             int sum = 0;
@@ -58,6 +60,7 @@ namespace Day_6
                     if (string.IsNullOrWhiteSpace(line))
                     {
                         char[] alpha = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
+
                         foreach (char letter in alpha)
                             sum += groupAnswers.Count(c => c == letter) == groupCount ? 1 : 0;
                         
@@ -73,7 +76,7 @@ namespace Day_6
                 }
             }
 
-            Console.WriteLine(sum);
+            Console.WriteLine($"Part 2: {sum}");
         }
     }
 }
