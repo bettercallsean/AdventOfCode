@@ -9,15 +9,15 @@ namespace Day_6
 
         static void Main(string[] args)
         {
-            SumOfUniqueGroupAnswers("../../../customs_answers.txt");
-            SumOfAllGroupAnswers("../../../customs_answers.txt");
+            string[] groupAnswers = File.ReadAllText("../../../customs_answers.txt").Split("\n\n");
+            SumOfUniqueGroupAnswers(groupAnswers);
+            SumOfAllGroupAnswers(groupAnswers);
         }
 
         // Part 1
-        static void SumOfUniqueGroupAnswers(string filename)
+        static void SumOfUniqueGroupAnswers(string[] groupAnswers)
         {
             int sum = 0;
-            string[] groupAnswers = File.ReadAllText(filename).Split("\n\n");
             foreach(string answer in groupAnswers)
             {
                 sum += answer.Replace("\n", "").Distinct().Count();
@@ -27,10 +27,9 @@ namespace Day_6
         }
 
         // Part 2
-        static void SumOfAllGroupAnswers(string filename)
+        static void SumOfAllGroupAnswers(string[] groupAnswers)
         {
             int sum = 0;
-            string[] groupAnswers = File.ReadAllText(filename).Split("\n\n");
             foreach(string answer in groupAnswers)
             {
                 // Each new peson is on a new line, so counting all of the newlines + 1 for the person at the top
