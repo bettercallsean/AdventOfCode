@@ -18,29 +18,11 @@ namespace Day_6
         static void SumOfUniqueGroupAnswers(string filename)
         {
             int sum = 0;
-            using (StreamReader reader = new StreamReader(filename))
+            string[] groupAnswers = File.ReadAllText(filename).Split("\n\n");
+            foreach(string answer in groupAnswers)
             {
-                string line;
-                List<char> answers = new List<char>();
-
-                while((line = reader.ReadLine()) != null)
-                {
-                    if (string.IsNullOrWhiteSpace(line))
-                    {
-                        sum += answers.Count;
-                        answers.Clear();
-                    }
-                    else
-                    {
-                        char[] individualAnswers = line.ToCharArray();
-                        foreach (char answer in individualAnswers)
-                        {
-                            if (!answers.Contains(answer))
-                                answers.Add(answer);
-                        }
-                    }
-                }
-            }
+                sum += answer.Replace("\n", "").Distinct().Count();
+            }    
 
             Console.WriteLine($"Part 1: {sum}");
         }
@@ -49,31 +31,15 @@ namespace Day_6
         static void SumOfAllGroupAnswers(string filename)
         {
             int sum = 0;
-            using (StreamReader reader = new StreamReader(filename))
+            string[] groupAnswers = File.ReadAllText(filename).Split("\n\n");
+            foreach(string answer in groupAnswers)
             {
-                string line;
-                string groupAnswers = "";
-                int groupCount = 0;
-
-                while ((line = reader.ReadLine()) != null)
-                {
-                    if (string.IsNullOrWhiteSpace(line))
-                    {
-                        char[] alpha = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
-
-                        foreach (char letter in alpha)
-                            sum += groupAnswers.Count(c => c == letter) == groupCount ? 1 : 0;
-                        
-
-                        groupAnswers = "";
-                        groupCount = 0;
-                    }
-                    else
-                    {
-                        groupCount++;
-                        groupAnswers += line;
-                    }
-                }
+                // Each new peson is on a new line, so counting all of the newlines + 1 for the person at the top
+                // will give us a value that can be used to find which characters are available in all of the strings.
+                int groupCount = answer.Count(c => c == '\n') + 1;
+                
+                // Groups by characters that are present in all of the groups answers
+                sum += answer.GroupBy(x => x).Where(x => x.Count() == groupCount).Count();
             }
 
             Console.WriteLine($"Part 2: {sum}");
