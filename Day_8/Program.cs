@@ -5,45 +5,51 @@ using System.Linq;
 
 namespace Day_8
 {
+    class ExecutionData
+    {
+        public ExecutionData()
+        {
+            ExecutedInstructions = new List<int>();
+        }
+
+        public int LastExecutedInstruction { get; set; }
+        public List<int> ExecutedInstructions { get; set; }
+        public int AccumulatorValue { get; set; }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
             string[] bootCode = File.ReadAllLines("../../../boot_code.txt");
 
-            int[] bootData = ExecuteBootCode(bootCode);
-            Console.WriteLine($"Accumulator Value: {bootData[1]}");
+            ExecutionData bootData = ExecuteBootCode(bootCode);
+            Console.WriteLine($"Accumulator Value: {bootData.AccumulatorValue}");
             
-            var watch = new System.Diagnostics.Stopwatch();
+            FixCorruptedInstructions(bootCode, bootData);
 
-            watch.Start();
-            FixCorruptedInstructionsImproved(bootCode);
-
-            watch.Stop();
-
-            Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
         }
 
         // Part 1
-        static int[] ExecuteBootCode(string[] bootCode)
+        static ExecutionData ExecuteBootCode(string[] bootCode)
         {
-            int acc = 0;
-            List<int> executedInstructions = new List<int>();
+            ExecutionData executionData = new ExecutionData();
 
             for (int i = 0; i < bootCode.Length; i++)
             {
-                if (executedInstructions.Contains(i))
+                if (executionData.ExecutedInstructions.Contains(i))
                     break;
 
                 string[] data = bootCode[i].Split(' ');
                 string instruction = data[0];
                 int value = int.Parse(data[1]);
 
-                executedInstructions.Add(i);
+                executionData.ExecutedInstructions.Add(i);
+                executionData.LastExecutedInstruction = i;
                 switch (instruction)
                 {
                     case ("acc"):
-                        acc += value;
+                        executionData.AccumulatorValue += value;
                         break;
                     case ("jmp"):
                         i += value - 1;
@@ -53,17 +59,14 @@ namespace Day_8
                 }
             }
 
-            int[] executionData = { executedInstructions.Last(), acc };
             return executionData;
 
         }
 
-        // Part 2 - Improved
-        static void FixCorruptedInstructionsImproved(string[] bootCode)
+        // Part 2
+        static void FixCorruptedInstructions(string[] bootCode, ExecutionData bootData)
         {
-            List<int> executedInstructions = GetExecutedInstructions(bootCode);
-
-            foreach(int instructionIndex in executedInstructions)
+            foreach(int instructionIndex in bootData.ExecutedInstructions)
             {
                 string[] bootCodeCopy = new string[bootCode.Length];
                 bootCode.CopyTo(bootCodeCopy, 0);
@@ -78,45 +81,14 @@ namespace Day_8
                 else if (instruction == "nop")
                     bootCodeCopy[instructionIndex] = "jmp " + value.ToString();
 
-                int[] executionData = ExecuteBootCode(bootCodeCopy);
-                if (executionData[0] == bootCode.Length - 1)
+                ExecutionData executionData = ExecuteBootCode(bootCodeCopy);
+                if (executionData.LastExecutedInstruction == bootCode.Length - 1)
                 {
-                    Console.WriteLine($"Accumulator value after fix: {executionData[1]}");
+                    Console.WriteLine($"Accumulator value after fix: {executionData.AccumulatorValue}");
                     break;
                 }
             }
 
-        }
-
-        static List<int> GetExecutedInstructions(string[] bootCode)
-        {
-            int acc = 0;
-            List<int> executedInstructions = new List<int>();
-
-            for (int i = 0; i < bootCode.Length; i++)
-            {
-                if (executedInstructions.Contains(i))
-                    break;
-
-                string[] data = bootCode[i].Split(' ');
-                string instruction = data[0];
-                int value = int.Parse(data[1]);
-
-                executedInstructions.Add(i);
-                switch (instruction)
-                {
-                    case ("acc"):
-                        acc += value;
-                        break;
-                    case ("jmp"):
-                        i += value - 1;
-                        break;
-                    case ("nop"):
-                        break;
-                }
-            }
-
-            return executedInstructions;
         }
 
     }
