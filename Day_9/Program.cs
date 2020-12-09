@@ -94,21 +94,18 @@ namespace Day_9
                     bool valuesTooBig = false;
 
                     for (int k = 0; k < setOfNumbers.Length; k++)
-                        sum += setOfNumbers[k];
-
-
-                    // This little check halves the execution time from 3117ms to 1427ms 
-                    foreach (long setNumber in setOfNumbers)
                     {
-                        if(setNumber >= number)
+                        if(setOfNumbers[k] >= number)
                         {
                             valuesTooBig = true;
                             break;
-                        }    
+                        }
+
+                        sum += setOfNumbers[k];
                     }
 
                     if (valuesTooBig)
-                        continue;
+                        break;
 
                     Array.Sort(setOfNumbers);
 
