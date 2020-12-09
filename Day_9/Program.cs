@@ -107,10 +107,10 @@ namespace Day_9
                     if (valuesTooBig)
                         break;
 
-                    Array.Sort(setOfNumbers);
-
                     if (sum == number)
                     {
+                        Array.Sort(setOfNumbers);
+
                         Console.WriteLine($"The encryption weakness is: {setOfNumbers[0] + setOfNumbers[^1]}");
                         return;
                     }
