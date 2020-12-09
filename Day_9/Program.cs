@@ -9,13 +9,13 @@ namespace Day_9
         static void Main(string[] args)
         {
             string[] stringData = File.ReadAllLines("../../../xmas_data.txt");
-            long[] data = StringToIntArray(stringData);
+            long[] data = StringToLongArray(stringData);
 
             long invalidNumber = FindInvalidNumber(data);
             ContingousSetOfNumbers(invalidNumber, data);
         }
 
-        static long[] StringToIntArray(string[] stringData)
+        static long[] StringToLongArray(string[] stringData)
         {
             long[] data = new long[stringData.Length];
 
