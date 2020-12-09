@@ -14,8 +14,7 @@ namespace Day_9
             long invalidNumber = FindInvalidNumber(data);
             ContingousSetOfNumbers(invalidNumber, data);
         }
-        
-        //Part 1 
+
         static long[] StringToIntArray(string[] stringData)
         {
             long[] data = new long[stringData.Length];
@@ -28,6 +27,7 @@ namespace Day_9
             return data;
         }
 
+        //Part 1 
         static long FindInvalidNumber(long[] data)
         {
             int startIndex = 0;
@@ -104,6 +104,9 @@ namespace Day_9
                         sum += setOfNumbers[k];
                     }
 
+                    // There is one value in this range that is too big, so any further increase in the range will be wasted work
+                    // because this number will still be included in it. Therefore we can skip this range of numbers and move onto the next
+                    // startingIndex
                     if (valuesTooBig)
                         break;
 
