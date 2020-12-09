@@ -68,11 +68,11 @@ namespace Day_9
             return validNumbers;
         }
 
-        static long[] CreateRangeOfData(long[] data, int startingIndex, int dataLength)
+        static long[] CreateRangeOfData(long[] data, int startingIndex, int rangeLength)
         {
-            long[] range = new long[dataLength];
+            long[] range = new long[rangeLength];
 
-            for(int i = 0; i < dataLength; i++)
+            for(int i = 0; i < rangeLength; i++)
             {
                 range[i] = data[startingIndex++];
             }
