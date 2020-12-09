@@ -31,27 +31,20 @@ namespace Day_9
         static long FindInvalidNumber(long[] data)
         {
             int startIndex = 0;
-            while(startIndex < data.Length)
-            {
-                long[] range = CreateRangeOfData(data, startIndex, 25);
-                List<long> validNumbers = ValidNumbers(range);
-                
-                if(!validNumbers.Contains(data[startIndex + 25]))
-                {
-                    Console.WriteLine($"Invalid Number: {data[startIndex + 25]}");
-                    break;
-                }
+            long[] range = CreateRangeOfData(data, startIndex, 25);
 
+            while (IsValidNumber(range, data[startIndex + 25]))
+            {
                 startIndex++;
+                range = CreateRangeOfData(data, startIndex, 25);
             }
 
+            Console.WriteLine($"Invalid Number: {data[startIndex + 25]}");
             return data[startIndex + 25];
         }
         
-        static List<long> ValidNumbers(long[] dataRange)
+        static bool IsValidNumber(long[] dataRange, long number)
         {
-            List<long> validNumbers = new List<long>();
-
             for(int i = 0; i < dataRange.Length; i++)
             {
                 for(int j = 0; j < dataRange.Length; j++)
@@ -59,13 +52,12 @@ namespace Day_9
                     if (i == j)
                         continue;
 
-                    long number = dataRange[i] + dataRange[j];
-                    if (!validNumbers.Contains(number))
-                        validNumbers.Add(number);
+                    if (number == dataRange[i] + dataRange[j])
+                        return true;
                 }
             }
 
-            return validNumbers;
+            return false;
         }
 
         static long[] CreateRangeOfData(long[] data, int startingIndex, int rangeLength)
