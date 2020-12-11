@@ -52,7 +52,7 @@ namespace Day_10
             // Takes into account the device adapter's 3-higher jolt rating
             threeJoltDifference++;
 
-            Console.WriteLine(oneJoltDifference * threeJoltDifference);
+            Console.WriteLine($"Part 1: {oneJoltDifference * threeJoltDifference}");
         }
 
         // Part 2
@@ -110,7 +110,7 @@ namespace Day_10
 
             }
 
-            Console.WriteLine(Math.Pow(2, twoPaths) * Math.Pow(7, sevenPaths));
+            Console.WriteLine($"Part 2: {Math.Pow(2, twoPaths) * Math.Pow(7, sevenPaths)}");
         }
 
 
