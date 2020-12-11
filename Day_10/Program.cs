@@ -79,7 +79,7 @@ namespace Day_10
                     //          0
                     //        / | \
                     //       1--2--3
-                    //       \-----/
+                    //       \--|--/
                     //        \-4-/
                     if (adapters[i + 1] - adapters[i] == 1)
                         sevenPaths++;
