@@ -36,7 +36,7 @@ namespace Day_11
                             //copy[i, j] = ChangeCellState(chairs, i, j);
 
                             // Part 2
-                            copy[i, j] = ChangeCellState(chairs, i, j);
+                            copy[i, j] = ChangeCellStatePart2(chairs, i, j);
 
                             // Seat has become occupied
                             if (copy[i, j] == "#" && chairs[i, j] == "L")
@@ -137,7 +137,9 @@ namespace Day_11
         static string GetAdjacentsPart2(string[,] array, int i, int j)
         {
             // This bit is incredibly slow, but for this challenge I really couldn't be bothered.
-            // Not sure if the challenge is supposed to be slow, but it only takes a second or two to execute
+            // Not sure if Part 2 is supposed to be slow, but it takes about 10s to execute on a
+            // Ryzen 1700
+            // As I said though, cba with this one
 
             string adjacents = "";
             bool[,] adjacentsSet = { { false, false, false},
