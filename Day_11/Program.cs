@@ -136,8 +136,8 @@ namespace Day_11
         // Part 2
         static string GetAdjacentsPart2(string[,] array, int i, int j)
         {
-            // This bit is incredibly slow but for this one I really couldn't be bothered.
-            // Not sure if the challenge is supposed to be slow, but it only takes a few seconds
+            // This bit is incredibly slow, but for this challenge I really couldn't be bothered.
+            // Not sure if the challenge is supposed to be slow, but it only takes a second or two to execute
 
             string adjacents = "";
             bool[,] adjacentsSet = { { false, false, false},
