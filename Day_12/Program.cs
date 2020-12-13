@@ -95,12 +95,12 @@ namespace Day_12
                         waypointEast -= value;
                         break;
                     case 'L':
-                        int[] coordsLeft = RotateLeft(waypointEast, waypointNorth, value);
+                        int[] coordsLeft = Rotate(waypointEast, waypointNorth, value);
                         waypointEast = coordsLeft[0];
                         waypointNorth = coordsLeft[1];
                         break;
                     case 'R':
-                        int[] coordsRight = RotateRight(waypointEast, waypointNorth, value);
+                        int[] coordsRight = Rotate(waypointEast, waypointNorth, value * -1);
                         waypointEast = coordsRight[0];
                         waypointNorth = coordsRight[1];
                         break;
@@ -114,34 +114,14 @@ namespace Day_12
             Console.WriteLine($"Part 2: {Math.Abs(north) + Math.Abs(east)}");
         }
 
-        static int[] RotateRight(int east, int north, int degrees)
+        static int[] Rotate(int east, int north, int degrees)
         {
-            double cos = degrees * (Math.PI / 180.0) *  -1;
-            // East
-            double newEast = east * Math.Cos(cos) - north * Math.Sin(cos);
-            // North
-            double newNorth = north * Math.Cos(cos) + east * Math.Sin(cos);
+            double rad = degrees * (Math.PI / 180.0);
 
-            newEast = Math.Round(newEast);
-            newNorth = Math.Round(newNorth);
+            double newEast = Math.Round(east * Math.Cos(rad) - north * Math.Sin(rad));
+            double newNorth = Math.Round(north * Math.Cos(rad) + east * Math.Sin(rad));
 
             int[] newCoords = { (int)newEast, (int)newNorth };
-            return newCoords;
-        }
-
-        static int[] RotateLeft(int east, int north, int degrees)
-        {
-            double cos = degrees * (Math.PI / 180.0);
-            // East
-            double newEast = east * Math.Cos(cos) - north * Math.Sin(cos);
-            // North
-            double newNorth = north * Math.Cos(cos) + east * Math.Sin(cos);
-
-            newEast = Math.Round(newEast);
-            newNorth = Math.Round(newNorth);
-
-            int[] newCoords = { (int)newEast, (int)newNorth };
-
             return newCoords;
         }
 
